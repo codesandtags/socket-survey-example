@@ -1,0 +1,15 @@
+{
+  "name": "socket-survey-example",
+  "version": "0.0.1",
+  "description": "A survey web application using socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Edwin Torres",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}

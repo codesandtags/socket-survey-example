@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+    <title>Colors</title>
+    <style>
+        /**
+ * Variables
+ ***/
+        /**
+         Media Query Manager
+         0 - 600px:     Phone
+         600 - 900px:   Tabet portrait
+         900 - 1200px:  Tablet landscape
+         1200 - 1800px: Desktop
+         1800px+:       Big desktop
+
+        $breakpoint argument choices:
+        - phone
+        - tab-port
+        - tab-land
+        - big-desktop
+        */
+        /**
+         * Reset
+         **/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif;
+            overflow: hidden;
+            height: inherit;
+            background-image: linear-gradient(to right bottom, #faf9f9, #777);
+        }
+
+        html {
+            font-size: 62.5%;
+            height: 100%;
+        }
+
+        @media (min-width: 56.24em) {
+            html {
+                font-size: 75%;
+            }
+        }
+
+        /**
+         * Styling
+         **/
+        a {
+            margin: 0 1rem;
+            color: #8a2be2;
+            text-decoration: none;
+        }
+
+        a:hover {
+            border-bottom: 1px dashed #8a2be2;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            font-size: 3rem;
+        }
+
+    </style>
+</head>
+<body>
+
+<main class="content">
+    <div>
+        <label for="colorSelector">Please select your favorite color</label>
+        <input type="color" id="colorSelector">
+    </div>
+</main>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+    const content = document.querySelector('.content');
+    const socket = io();
+
+    function ready() {
+        const colorSelector = document.querySelector('#colorSelector');
+
+        colorSelector.addEventListener('input', (e) => {
+            const color = e.target.value;
+            changeColor(color);
+            socket.emit('changeColor', color);
+        });
+
+        socket.on('changeColor', function (color) {
+            changeColor(color);
+        });
+    }
+
+    function changeColor(color) {
+        content.style.backgroundColor = color;
+        console.log('Changed color to', color);
+    }
+
+    document.addEventListener("DOMContentLoaded", ready);
+</script>
+
+</body>
+</html>
